@@ -44,27 +44,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        var allowedOrigins = new[]
-        {
-            "http://localhost:4173",
-            "http://127.0.0.1:4173",
-            "http://localhost:5500",
-            "http://127.0.0.1:5500",
-            "https://peak-d.netlify.app"
-        };
-
         policy
-            .SetIsOriginAllowed(origin =>
-            {
-                if (origin == "null" || allowedOrigins.Contains(origin))
-                {
-                    return true;
-                }
-
-                return Uri.TryCreate(origin, UriKind.Absolute, out var uri)
-                    && (uri.Port is 4173 or 5500)
-                    && IsLocalNetworkHost(uri.Host);
-            })
+            .WithOrigins(
+                "https://peak-d.netlify.app"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
