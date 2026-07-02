@@ -45,9 +45,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Frontend", policy =>
     {
         policy
-            .WithOrigins(
-                "https://peak-d.netlify.app"
-            )
+            .WithOrigins("https://peak-d.netlify.app")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
